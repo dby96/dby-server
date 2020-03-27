@@ -11,5 +11,5 @@ SpringBoot学习记录：
 [2.IDEIntelliJ IDEA搭建一个SpringBoot项目](/docs/2.IDEA搭建一个SpringBoot项目.md)
 
 
-##参考：
+##参考：  
 http://c.biancheng.net/spring_boot/
