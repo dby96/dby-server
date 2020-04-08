@@ -1,7 +1,15 @@
 package com.dby.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.jdbc.JdbcTemplateAutoConfiguration;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.List;
 
 @RestController
 public class DbyRestController {
@@ -15,4 +23,21 @@ public class DbyRestController {
 				+ "开箱即用，Outofbox，是指在开发过程中，通过在MAVEN项目的pom文件中添加相关依赖包，然后使用对应注解来代替繁琐的XML配置文件以管理对象的生命周期。这个特点使得开发人员摆脱了复杂的配置工作以及依赖的管理工作，更加专注于业务逻辑。\n"
 				+ "约定优于配置，Convention over configuration，是一种由SpringBoot本身来配置目标结构，由开发者在结构中添加信息的软件设计范式。这一特点虽降低了部分灵活性，增加了BUG定位的复杂性，但减少了开发人员需要做出决定的数量，同时减少了大量的XML配置，并且可以将代码编译、测试和打包等工作自动化。";
 	}
+
+	@Autowired
+	JdbcTemplate jdbcTemplate;
+
+	@RequestMapping("queryInfo")
+	public List<String> queryInfo(){
+
+		String sql = "select * from info";
+		List<String> userVOS = jdbcTemplate.query(sql, new RowMapper<String>() {
+			@Override
+			public String mapRow(ResultSet rs, int rowNum) throws SQLException {
+				return rs.getString("name");
+			}
+		});
+		return userVOS;
+	}
+
 }
